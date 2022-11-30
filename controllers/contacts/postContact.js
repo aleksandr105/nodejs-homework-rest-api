@@ -1,8 +1,8 @@
-const { addContact } = require("../../models/contacts");
+const { Contact } = require("../../models/contact");
 
 const postContact = async (req, res, next) => {
   try {
-    const response = await addContact(req.body);
+    const response = await Contact.create(req.body);
 
     res.status(201).json(response);
   } catch (error) {

@@ -1,9 +1,12 @@
 const { Contact } = require("../../models/contact");
 
-const contactById = async (req, res, next) => {
+const patchUpdateStatusContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const response = await Contact.findById(contactId, "-createdAt -updatedAt");
+
+    const response = await Contact.findByIdAndUpdate(contactId, req.body, {
+      new: true,
+    });
 
     if (!response) {
       const error = new Error("Not found");
@@ -19,4 +22,4 @@ const contactById = async (req, res, next) => {
   }
 };
 
-module.exports = contactById;
+module.exports = patchUpdateStatusContact;
