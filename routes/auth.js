@@ -5,6 +5,7 @@ const {
   JoiUserSchema,
   JoiLoginSchema,
   JoiSubscriptionUpdate,
+  JoiRelapseVerifyEmail,
 } = require("../models/user");
 const { authController: ctrl } = require("../controllers");
 
@@ -24,5 +25,13 @@ router.patch(
 );
 
 router.patch("/avatars", checksAuth, upload.single("image"), ctrl.avatarEdit);
+
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+
+router.post(
+  "/verify",
+  validation(JoiRelapseVerifyEmail),
+  ctrl.relapseVerifyEmail
+);
 
 module.exports = router;
